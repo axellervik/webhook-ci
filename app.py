@@ -6,11 +6,11 @@ app = Flask(__name__)
 list = ['AAAAAAAAAAAAAa', 'Bunny', 'Cat', 'Duck', 'E']
 
 @app.route('/', methods=['GET'])
-def status():
+def test1():
     return jsonify({'GET': [item for item in list]})
 
 @app.route('/', methods=['POST'])
-def status():
+def test2():
     return jsonify({'POST': [item for item in list]})
 
 # main driver function

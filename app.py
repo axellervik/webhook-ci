@@ -3,16 +3,16 @@ import json
 
 app = Flask(__name__)
 
-usersList = ['Apa', 'Banana', 'Cat', 'Bunny', 'Lion']
+list = ['AAAAAAAAAAAAAa', 'Bunny', 'Cat', 'Duck', 'E']
 
 @app.route('/', methods=['GET'])
-def users():
-    return jsonify({'users': [user for user in usersList]})
+def status():
+    return jsonify({'GET': [item for item in list]})
 
 @app.route('/', methods=['POST'])
 def status():
-    return jsonify({'users': [user for user in usersList]})
+    return jsonify({'POST': [item for item in list]})
 
 # main driver function
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True, port=8017)

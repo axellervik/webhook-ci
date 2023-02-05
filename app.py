@@ -3,25 +3,15 @@ import json
 
 app = Flask(__name__)
 
-usersList = ['Aaron', 'Bianca', 'Cat', 'Danny', 'Elena']
+usersList = ['Apa', 'Banana', 'Cat', 'Bunny', 'Lion']
 
-@app.route('/users', methods=['GET'])
+@app.route('/', methods=['GET'])
 def users():
-    return jsonify({ 'users': [user for user in usersList] })
+    return jsonify({'users': [user for user in usersList]})
 
-@app.route('/user/<int:id>', methods=['GET'])
-def userById(id):
-    return jsonify({ 'username': usersList[id]  })
-
-@app.route('/user/<string:name>', methods=['GET'])
-def getUserByName(name):
-    # Show some user information
-    return "Some info"
-
-@app.route('/user/<string:name>', methods=['POST'])
-def addUserByName(name):
-    usersList.append(name)
-    return jsonify({ 'message': 'POST'})
+@app.route('/', methods=['POST'])
+def status():
+    return jsonify({'users': [user for user in usersList]})
 
 # main driver function
 if __name__ == '__main__':

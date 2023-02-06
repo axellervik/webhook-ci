@@ -11,7 +11,10 @@ def test1():
 
 @app.route('/', methods=['POST'])
 def test2():
-    return jsonify({'POST': [item for item in list]})
+    payload = request.get_json()
+    print(payload)
+    return payload
+    # return jsonify({'POST': [item for item in list]})
 
 # main driver function
 if __name__ == '__main__':

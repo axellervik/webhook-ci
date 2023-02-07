@@ -21,23 +21,18 @@ def handle_post():
     # extract relevant data
     id = data['head_commit']['id']
     status_url = data['repository']['statuses_url']
-    clone_url = data['repository']['clone_url']#"https://github.com/axellervik/webhook-ci.git"#data['clone_url']
+    clone_url = data['repository']['clone_url']
     url = data['repository']['url']
     sha = data['ref'].split('/')[-1]
-    commit_id = data['commit_id']
-    timestamp = data['head-commit']['timestamp']
-    commit_url = data['head-commit']['url']
+    commit_id = data['head_commit']['id']
+    timestamp = data['head_commit']['timestamp']
+    commit_url = data['head_commit']['url']
     # set update status to pending
     update_status(id, status_url, 'pending', config.api_token)
-    # run compile script and test script
-    # try:
-    #     clone_url = data['clone_url']
-    # except KeyError:
-    #     print(f"'clone_url' not found in {data}")
     result = check(clone_url, url, sha)
     # update status based on result
     status = 'success' if result.returncode == 0 else 'failure'
-    update_status(data, status, config.api_token)
+    update_status(id, status_url, status, config.api_token)
     # insert into database
     build = history.serialize(commit_id, timestamp, status, commit_url, result.stderr if result.stderr is not None else '')
     history.insert_build(build)
